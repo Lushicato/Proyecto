@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq.Expressions;
 
 class gestor
 {
@@ -45,3 +46,47 @@ class gestor
             }
         }
     }
+    public void GuardarTareasArchivo()
+    {
+        try
+        {
+            using (StreamWriter escritor = new StreamWriter(rutaArchivoDatos))
+            {
+                foreach (var tarea in tareas)
+                {
+                    escritor.WriterLine($"{tarea.nombre},{tarea.EstaCompletada}");
+                }
+
+            }
+        }
+
+             catch (Exception ex)
+
+          { 
+            Console.WriteLine($"Error al guardar las tareas: {Exception.Message}")
+          }
+
+    }
+    public void AgregarTarea(string nombre, string fechaHora)
+    {
+        tareas.Add(new Tarea({ nombre } - {fechaHora}));
+    }
+    public void CompletarTarea(int indice)
+    {
+        if (indice >= 0 && indice < tareas.Count)
+        {
+            tareas[indice].EstaCompletada = true;
+        }
+        else
+        {
+            Console.WriteLine("Indice de tarea no valido.");
+        }
+    }
+    public void MostrarTareas()
+    {
+        Console.WriteLine("Lista de tareas:");
+        for (int = 0; i < tareas.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}.[{(tareas[i].EstaCompletada ? "X" : "")}]{tareas[i].Nombre}");
+        }
+}       
