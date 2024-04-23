@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
-class gestor
+class gestorDeTareas
 {
     public class tarea
     {
@@ -85,22 +85,57 @@ class gestor
         {
             Console.WriteLine($"{i + 1}.[{(tareas[i].EstaCompletada ? "X" : "")}]{tareas[i].Nombre}");
         }
-}     
-    class progrma
+}
+    class Programa
     {
-        static void main (string[] args)
+        static void Main(string[] args)
         {
-            gestortareas gestortareas = new gestortareas();
-               
+            GestorTareas gestorTareas = new GestorTareas();
+
             while (true)
             {
-                Console.Writeline("/nmenu:");
-                Console.WriteLine("1. agreagar tarea");
+                Console.WriteLine("Menyu");
+                Console.WriteLine("1. agregar tarea");
                 Console.WriteLine("2. completar tarea");
-                Console.WriteLine("3. mostrar tarea");
+                Console.WriteLine("3. mostrar tareas");
                 Console.WriteLine("4. salir");
-                Console.Write(seleccion una operacion: );
-                string opcion = consolereadline();+-
+                Console.Write("Seleccione una opcion: ");
+
+                string opcion = Console.ReadLine();
+
+                switch (opcion)
+                {
+                    case "1":
+                        Console.Write("ingrese el nombre de la tarea: ");
+                        string nombreTarea = Console.ReadLine();
+                        Console.Write("ingrese la fecha y hora (formato: dd/mm/aaaa hh:mm): ");
+                        string fechaHoraTarea = Console.ReadLine();
+                        gestorTareas.AgregarTarea(nombreTarea, fechaHoraTarea);
+                        Console.WriteLine("tarea agregada con exito.");
+                        break;
+                    case "2":
+                        Console.Write("ingrese el indice de la tarea a completar: ");
+                        if (int.TryParse(Console.ReadLine(), out int indiceTarea))
+                        {
+                            gestorTareas.CompletarTarea(indiceTarea - 1);
+                        }
+                        else
+                        {
+                            Console.WriteLine("indice no válido.");
+                        }
+                        break;
+                    case "3":
+                        gestorTareas.MostrarTareas();
+                        break;
+                    case "4":
+                        gestorTareas.GuardarTareasEnArchivo(); 
+                        Console.WriteLine("¡Hasta luego!");
+                        return;
+                    default:
+                        Console.WriteLine("Opcion no valida por favor seleccione una opcion valida.");
+                        break;
+                }
             }
         }
     }
+}     
