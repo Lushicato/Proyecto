@@ -18,11 +18,11 @@ class gestorDeTareas
     private List<tarea> tareas = new List<tarea>();
     private readonly string rutadearchivos = "tareas.dat";
 
-    public Gestor()
+    public GestorDeTareas()
     {
-        cargardesdearchivo()
+        CargarDesdeArchivo();
     }
-    private void cargardesdearchivo()
+    private void CargarDesdeArchivo();
     {
         if (File.Exists(rutadearchivos))
         {
@@ -90,9 +90,9 @@ class gestorDeTareas
     {
         static void Main(string[] args)
         {
-            GestorTareas gestorTareas = new GestorTareas();
+        GestorDeTareas gestorTareas = new GestorDeTareas();
 
-            while (true)
+        while (true)
             {
                 Console.WriteLine("Menyu");
                 Console.WriteLine("1. agregar tarea");
