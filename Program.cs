@@ -1,17 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-class gestorDeTareas
+class GestorDeTareas
 {
     public class tarea
     {
         public string nombre { get; set; }
-        public bool completo { get; set; }
+        public bool Completo { get; set; }
 
         public tarea(string nombre)
         {
             Nombre = nombre;
-            completo = false;
+            Completo = false;
         }
     }
 
@@ -22,7 +22,7 @@ class gestorDeTareas
     {
         CargarDesdeArchivo();
     }
-    private void CargarDesdeArchivo();
+    private void CargarDesdeArchivo()
     {
         if (File.Exists(rutadearchivos))
         {
@@ -31,16 +31,17 @@ class gestorDeTareas
                 using (StreamReader lector = new StreamReader(rutadearchivos))
                 {
                     string linea;
-                    while ((linea = lector.ReadLine)! = null)
+                    while ((linea = lector.ReadLine()) != null)
+
                     {
                         string[] partes = linea.Split(',');
-                        tareas.Add(new tarea(partes[0]) { estacompleta = bool.Parse(partes[1]) });
+                        tareas.Add(new tarea(partes[0]) { Completo = bool.Parse(partes[1]) });
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al cargar las tareas: {ex.message} ");
+                Console.WriteLine($"Error al cargar las tareas: {ex.Message} ");
             }
         }
     }
@@ -52,26 +53,26 @@ class gestorDeTareas
             {
                 foreach (var tarea in tareas)
                 {
-                    escritor.WriteLine($"{tarea.Nombre},{tarea.EstaCompletada}");
+                    escritor.WriteLine($"{tarea.Nombre},{tarea.Completo}");
                 }
 
             }
         }
         catch (Exception ex)
-        { 
-            Console.WriteLine($"Error al guardar las tareas: {Exception.Message}")
+        {
+            Console.WriteLine($"Error al guardar las tareas: {Exception.Message}");
           }
 
     }
     public void AgregarTarea(string nombre, string fechaHora)
     {
-        tareas.Add(new Tarea({ nombre } - {fechaHora}));
+        tareas.Add(new Tarea("{ nombre } - {fechaHora}"));
     }
     public void CompletarTarea(int indice)
     {
         if (indice >= 0 && indice < tareas.Count)
         {
-            tareas[indice].EstaCompletada = true;
+            tareas[indice].Completo = true;
         }
         else
         {
@@ -81,9 +82,9 @@ class gestorDeTareas
     public void MostrarTareas()
     {
         Console.WriteLine("Lista de tareas:");
-        for (int = 0; i < tareas.Count; i++)
+        for (int i = 0; i < tareas.Count; i++)
         {
-            Console.WriteLine($"{i + 1}.[{(tareas[i].EstaCompletada ? "X" : "")}]{tareas[i].Nombre}");
+            Console.WriteLine($"{i + 1}.[{(tareas[i].Completo ? "X" : "")}]{tareas[i].Nombre}");
         }
 }
     class Programa
@@ -94,7 +95,7 @@ class gestorDeTareas
 
         while (true)
             {
-                Console.WriteLine("Menyu");
+                Console.WriteLine("Menu");
                 Console.WriteLine("1. agregar tarea");
                 Console.WriteLine("2. completar tarea");
                 Console.WriteLine("3. mostrar tareas");
