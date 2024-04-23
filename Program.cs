@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq.Expressions;
 
 class gestor
 {
@@ -12,7 +11,7 @@ class gestor
 
         public tarea(string nombre)
         {
-            this.nombre = nombre;
+            Nombre = nombre;
             completo = false;
         }
     }
@@ -54,15 +53,13 @@ class gestor
             {
                 foreach (var tarea in tareas)
                 {
-                    escritor.WriterLine($"{tarea.nombre},{tarea.EstaCompletada}");
+                    escritor.WriteLine($"{tarea.Nombre},{tarea.EstaCompletada}");
                 }
 
             }
         }
-
-             catch (Exception ex)
-
-          { 
+        catch (Exception ex)
+        { 
             Console.WriteLine($"Error al guardar las tareas: {Exception.Message}")
           }
 
