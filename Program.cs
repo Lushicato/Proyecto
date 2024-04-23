@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-
 class gestor
 {
     public class tarea
@@ -86,4 +85,22 @@ class gestor
         {
             Console.WriteLine($"{i + 1}.[{(tareas[i].EstaCompletada ? "X" : "")}]{tareas[i].Nombre}");
         }
-}       
+}     
+    class progrma
+    {
+        static void main (string[] args)
+        {
+            gestortareas gestortareas = new gestortareas();
+               
+            while (true)
+            {
+                Console.Writeline("/nmenu:");
+                Console.WriteLine("1. agreagar tarea");
+                Console.WriteLine("2. completar tarea");
+                Console.WriteLine("3. mostrar tarea");
+                Console.WriteLine("4. salir");
+                Console.Write(seleccion una operacion: );
+                string opcion = consolereadline();+-
+            }
+        }
+    }
