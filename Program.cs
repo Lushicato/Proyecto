@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+
 class GestorDeTareas
 {
     public class tarea
     {
-        public string nombre { get; set; }
+        public string Nombre { get; set; }
         public bool Completo { get; set; }
 
         public tarea(string nombre)
@@ -22,6 +23,7 @@ class GestorDeTareas
     {
         CargarDesdeArchivo();
     }
+
     private void CargarDesdeArchivo()
     {
         if (File.Exists(rutadearchivos))
@@ -32,7 +34,6 @@ class GestorDeTareas
                 {
                     string linea;
                     while ((linea = lector.ReadLine()) != null)
-
                     {
                         string[] partes = linea.Split(',');
                         tareas.Add(new tarea(partes[0]) { Completo = bool.Parse(partes[1]) });
@@ -41,15 +42,16 @@ class GestorDeTareas
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al cargar las tareas: {ex.Message} ");
+                Console.WriteLine($"Error al cargar las tareas: {ex.Message}");
             }
         }
     }
+
     public void GuardarTareasArchivo()
     {
         try
         {
-            using (StreamWriter escritor = new StreamWriter(rutaArchivoDatos))
+            using (StreamWriter escritor = new StreamWriter(rutadearchivos))
             {
                 foreach (var tarea in tareas)
                 {
@@ -60,14 +62,15 @@ class GestorDeTareas
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error al guardar las tareas: {Exception.Message}");
-          }
-
+            Console.WriteLine($"Error al guardar las tareas: {ex.Message}");
+        }
     }
+
     public void AgregarTarea(string nombre, string fechaHora)
     {
-        tareas.Add(new Tarea("{ nombre } - {fechaHora}"));
+        tareas.Add(new tarea($"{nombre} - {fechaHora}"));
     }
+
     public void CompletarTarea(int indice)
     {
         if (indice >= 0 && indice < tareas.Count)
@@ -86,57 +89,57 @@ class GestorDeTareas
         {
             Console.WriteLine($"{i + 1}.[{(tareas[i].Completo ? "X" : "")}]{tareas[i].Nombre}");
         }
+    }
 }
-    class Programa
+class Programa
+{
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
         GestorDeTareas gestorTareas = new GestorDeTareas();
 
         while (true)
+        {
+            Console.WriteLine("\nMenu");
+            Console.WriteLine("1. Agregar tarea");
+            Console.WriteLine("2. Completar tarea");
+            Console.WriteLine("3. Mostrar tareas");
+            Console.WriteLine("4. Salir");
+            Console.Write("Seleccione una opcion: ");
+
+            string opcion = Console.ReadLine();
+
+            switch (opcion)
             {
-                Console.WriteLine("Menu");
-                Console.WriteLine("1. agregar tarea");
-                Console.WriteLine("2. completar tarea");
-                Console.WriteLine("3. mostrar tareas");
-                Console.WriteLine("4. salir");
-                Console.Write("Seleccione una opcion: ");
-
-                string opcion = Console.ReadLine();
-
-                switch (opcion)
-                {
-                    case "1":
-                        Console.Write("ingrese el nombre de la tarea: ");
-                        string nombreTarea = Console.ReadLine();
-                        Console.Write("ingrese la fecha y hora (formato: dd/mm/aaaa hh:mm): ");
-                        string fechaHoraTarea = Console.ReadLine();
-                        gestorTareas.AgregarTarea(nombreTarea, fechaHoraTarea);
-                        Console.WriteLine("tarea agregada con exito.");
-                        break;
-                    case "2":
-                        Console.Write("ingrese el indice de la tarea a completar: ");
-                        if (int.TryParse(Console.ReadLine(), out int indiceTarea))
-                        {
-                            gestorTareas.CompletarTarea(indiceTarea - 1);
-                        }
-                        else
-                        {
-                            Console.WriteLine("indice no válido.");
-                        }
-                        break;
-                    case "3":
-                        gestorTareas.MostrarTareas();
-                        break;
-                    case "4":
-                        gestorTareas.GuardarTareasEnArchivo(); 
-                        Console.WriteLine("¡Hasta luego!");
-                        return;
-                    default:
-                        Console.WriteLine("Opcion no valida por favor seleccione una opcion valida.");
-                        break;
-                }
+                case "1":
+                    Console.Write("ingrese el nombre de la tarea: ");
+                    string nombreTarea = Console.ReadLine();
+                    Console.Write("ingrese la fecha y hora (formato: dd/mm/aaaa hh:mm): ");
+                    string fechaHoraTarea = Console.ReadLine();
+                    gestorTareas.AgregarTarea(nombreTarea, fechaHoraTarea);
+                    Console.WriteLine("tarea agregada con exito.");
+                    break;
+                case "2":
+                    Console.Write("ingrese el indice de la tarea a completar: ");
+                    if (int.TryParse(Console.ReadLine(), out int indiceTarea))
+                    {
+                        gestorTareas.CompletarTarea(indiceTarea - 1);
+                    }
+                    else
+                    {
+                        Console.WriteLine("indice no válido.");
+                    }
+                    break;
+                case "3":
+                    gestorTareas.MostrarTareas();
+                    break;
+                case "4":
+                    gestorTareas.GuardarTareasArchivo();
+                    Console.WriteLine("¡Hasta luego!");
+                    return;
+                default:
+                    Console.WriteLine("Opcion no valida por favor seleccione una opcion valida.");
+                    break;
             }
         }
     }
-}     
+}
